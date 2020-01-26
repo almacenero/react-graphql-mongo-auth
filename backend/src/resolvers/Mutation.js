@@ -1,5 +1,6 @@
 const Item = require("./../models/Item");
 const User = require("./../models/User");
+const bcrypt = require("bcryptjs");
 
 const createItem = async (root, args) => {
   let item = await new Item(args);
@@ -9,7 +10,12 @@ const createItem = async (root, args) => {
 };
 
 const createUser = async (root, args) => {
-  let user = await new User(args);
+  args.email = args.email.toLowerCase();
+  const password = await bcrypt.hash(args.password, 10);
+  let user = await new User({
+    ...args,
+    password
+  });
 
   user.save();
   return user;
