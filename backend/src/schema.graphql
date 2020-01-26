@@ -6,6 +6,9 @@ type User {
   email: String
   password: Float
 }
+type authData {
+  userId: ID!
+}
 type Query {
   hello(name: String): String!
   items: [Item]
