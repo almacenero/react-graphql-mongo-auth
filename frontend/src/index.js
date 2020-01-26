@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import ApolloClient from "apollo-boost";
+import "bootstrap/dist/css/bootstrap.min.css";
 require("dotenv").config();
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_GRAPHQL
