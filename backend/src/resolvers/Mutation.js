@@ -3,7 +3,6 @@ const User = require("./../models/User");
 const bcrypt = require("bcryptjs");
 
 const createItem = async (_, args, ctx) => {
-  console.log("ddddd", ctx.request.isAuth);
   if (!ctx.request.isAuth) {
     throw new Error("No estas autenticado");
   }
