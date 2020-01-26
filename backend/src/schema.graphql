@@ -4,12 +4,18 @@ type Item {
 }
 type User {
   email: String
-  password: Float
+  password: String
+}
+type AuthData {
+  userId: ID!
+  token: String!
+  tokenExpiration: Int!
 }
 type Query {
   hello(name: String): String!
   items: [Item]
   users: [User]
+  login(email: String!, password: String!): AuthData!
 }
 
 type Mutation {

@@ -1,6 +1,7 @@
 const { GraphQLServer } = require("graphql-yoga");
 const Query = require("./src/resolvers/Query");
 const Mutation = require("./src/resolvers/Mutation");
+const isAuth = require("./src/middleware/is-auth");
 
 const resolvers = {
   Query,
@@ -9,7 +10,8 @@ const resolvers = {
 
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
-  resolvers
+  resolvers,
+  context: req => ({ ...req })
 });
 
 const options = {
@@ -17,6 +19,8 @@ const options = {
   endpoint: "/graphql",
   playground: "/playground"
 };
+
+server.use(isAuth);
 
 server.start(options, ({ port }) =>
   console.log(
