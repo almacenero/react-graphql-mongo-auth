@@ -1,4 +1,5 @@
 const Item = require("./../models/Item");
+const User = require("./../models/User");
 
 const createItem = async (root, args) => {
   let item = await new Item(args);
@@ -6,4 +7,11 @@ const createItem = async (root, args) => {
   item.save();
   return item;
 };
-module.exports = { createItem };
+
+const createUser = async (root, args) => {
+  let user = await new User(args);
+
+  user.save();
+  return user;
+};
+module.exports = { createItem, createUser };

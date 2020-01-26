@@ -2,11 +2,17 @@ type Item {
   title: String
   price_cost: Float
 }
+type User {
+  email: String
+  password: Float
+}
 type Query {
   hello(name: String): String!
   items: [Item]
+  users: [User]
 }
 
 type Mutation {
   createItem(title: String, price_cost: Float): Item!
+  createUser(email: String, password: String): User!
 }
