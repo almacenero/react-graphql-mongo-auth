@@ -36,7 +36,7 @@ const LOGIN_USER = gql`
 `;
 
 const Login = () => {
-  const [createUser, { data }] = useMutation(LOGIN_USER);
+  const [login, { data }] = useMutation(LOGIN_USER);
 
   const [emailInput, setemailInput] = useState("");
   const [passwordInput, setpasswordInput] = useState("");
@@ -62,7 +62,7 @@ const Login = () => {
               css={formStyle}
               onSubmit={e => {
                 e.preventDefault();
-                createUser({
+                login({
                   variables: {
                     email: emailInput,
                     password: passwordInput
