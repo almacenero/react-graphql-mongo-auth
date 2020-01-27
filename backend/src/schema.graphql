@@ -1,8 +1,10 @@
 type Item {
+  _id: String
   title: String
   price_cost: Float
 }
 type User {
+  _id: String
   email: String
   password: String
 }

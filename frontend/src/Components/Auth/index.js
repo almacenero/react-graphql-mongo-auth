@@ -7,12 +7,12 @@ const borde = css({
   borderStyle: "solid"
 });
 
-const BodyPage = () => {
+const Login = () => {
   return (
-    // <Row>
-    //   <Container css={borde}>Cuerpoooooooooo</Container>
-    // </Row>
+    <Row>
+      <Container>Login</Container>
+    </Row>
   );
 };
 
-export default BodyPage;
+export default Login;
