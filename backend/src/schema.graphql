@@ -17,7 +17,7 @@ type Query {
   hello(name: String): String!
   items: [Item]
   users: [User]
-  login(email: String!, password: String!): AuthData!
+  login(email: String, password: String): AuthData!
 }
 
 type Mutation {

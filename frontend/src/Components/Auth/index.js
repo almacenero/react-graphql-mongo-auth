@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import gql from "graphql-tag";
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import {
   Row,
   Col,
@@ -26,20 +26,26 @@ const formStyle = css({
 });
 
 const LOGIN_USER = gql`
-  mutation Login($email: String, $password: String) {
+  query Login($email: String, $password: String) {
     login(email: $email, password: $password) {
-      _id
-      email
-      password
+      userId
+      token
+      tokenExpiration
     }
   }
 `;
 
 const Login = () => {
-  const [login, { data }] = useMutation(LOGIN_USER);
-
   const [emailInput, setemailInput] = useState("");
   const [passwordInput, setpasswordInput] = useState("");
+  const [emailData, setemailData] = useState("");
+  const [passwordData, setpasswordData] = useState("");
+  const { loading, error, data } = useQuery(LOGIN_USER, {
+    variables: {
+      email: emailData,
+      password: passwordData
+    }
+  });
 
   const handleChange = e => {
     const { value, name } = e.target;
@@ -62,12 +68,8 @@ const Login = () => {
               css={formStyle}
               onSubmit={e => {
                 e.preventDefault();
-                login({
-                  variables: {
-                    email: emailInput,
-                    password: passwordInput
-                  }
-                });
+                setemailData(emailInput);
+                setpasswordData(passwordInput);
                 setemailInput("");
                 setpasswordInput("");
               }}
