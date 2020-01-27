@@ -8,27 +8,30 @@ import Items from "./Components/Items/index";
 import Users from "./Components/Users/index";
 import Login from "./Components/Auth/index";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AuthContext from "./Context/auth-context";
 
 function App({ client }) {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <HeaderPage />
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/items">
-            <Items />
-          </Route>
-          <Route path="/">
-            <BodyPage />
-          </Route>
-        </Switch>
-      </Router>
+      <AuthContext.Provider>
+        <Router>
+          <HeaderPage />
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/users">
+              <Users />
+            </Route>
+            <Route path="/items">
+              <Items />
+            </Route>
+            <Route path="/">
+              <BodyPage />
+            </Route>
+          </Switch>
+        </Router>
+      </AuthContext.Provider>
     </ApolloProvider>
   );
 }
