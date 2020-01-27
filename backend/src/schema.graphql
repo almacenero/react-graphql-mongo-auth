@@ -1,8 +1,10 @@
 type Item {
+  _id: String
   title: String
   price_cost: Float
 }
 type User {
+  _id: String
   email: String
   password: String
 }
@@ -15,7 +17,7 @@ type Query {
   hello(name: String): String!
   items: [Item]
   users: [User]
-  login(email: String!, password: String!): AuthData!
+  login(email: String, password: String): AuthData!
 }
 
 type Mutation {
