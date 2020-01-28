@@ -94,7 +94,7 @@ const Login = () => {
                   bsSize="sm"
                 />
               </FormGroup>
-              <Button type="submit">Logear</Button>
+              <Button type="submit">Ingresar</Button>
             </Form>
           </Col>
         </Container>
