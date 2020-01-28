@@ -34,7 +34,7 @@ function App({ client }) {
   };
   const logout = () => {
     if (localStorage.getItem("mi token")) {
-      alert("En breve se cerrara tu session cerrar tu session");
+      alert("En breve se cerrara tu session!!");
     }
   };
 
