@@ -8,7 +8,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from "./Context/auth-context";
 require("dotenv").config();
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_API_GRAPHQL
+  uri: process.env.REACT_APP_API_GRAPHQL,
+  request: operation => {
+    const token = localStorage.getItem("mi token");
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ""
+      }
+    });
+  }
 });
 
 ReactDOM.render(
