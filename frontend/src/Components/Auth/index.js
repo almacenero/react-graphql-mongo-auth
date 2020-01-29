@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { AuthContext } from "./../../Context/auth-context";
 import { useHistory } from "react-router-dom";
+import { message } from "antd";
 import {
   Row,
   Col,
@@ -39,11 +40,13 @@ const LOGIN_USER = gql`
 
 const Login = () => {
   let history = useHistory();
+
   const { handleToken } = useContext(AuthContext);
   const [emailInput, setemailInput] = useState("");
   const [passwordInput, setpasswordInput] = useState("");
   const [emailData, setemailData] = useState("");
   const [passwordData, setpasswordData] = useState("");
+
   const { loading, error, data } = useQuery(LOGIN_USER, {
     variables: {
       email: emailData,
@@ -60,6 +63,12 @@ const Login = () => {
       setpasswordInput(value);
     }
   };
+  const errorMessage = () => {
+    message.error("This is an error message");
+  };
+  if (error) {
+    errorMessage();
+  }
   if (data) {
     console.log("jjjjjjjjjj");
     localStorage.setItem("mi token", data.login.token);
@@ -67,6 +76,7 @@ const Login = () => {
     handleToken();
     history.push("/");
   }
+
   return (
     <>
       <Row>
