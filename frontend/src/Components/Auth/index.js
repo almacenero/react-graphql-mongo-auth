@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import { AuthContext } from "./../../Context/auth-context";
 import { useHistory } from "react-router-dom";
 import {
@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import { message } from "antd";
 
 const borde = css({
   borderStyle: "solid"
@@ -28,7 +29,7 @@ const formStyle = css({
 });
 
 const LOGIN_USER = gql`
-  query Login($email: String, $password: String) {
+  mutation Login($email: String, $password: String) {
     login(email: $email, password: $password) {
       userId
       token
@@ -42,14 +43,7 @@ const Login = () => {
   const { handleToken } = useContext(AuthContext);
   const [emailInput, setemailInput] = useState("");
   const [passwordInput, setpasswordInput] = useState("");
-  const [emailData, setemailData] = useState("");
-  const [passwordData, setpasswordData] = useState("");
-  const { loading, error, data } = useQuery(LOGIN_USER, {
-    variables: {
-      email: emailData,
-      password: passwordData
-    }
-  });
+  const [login, { data, error }] = useMutation(LOGIN_USER);
 
   const handleChange = e => {
     const { value, name } = e.target;
@@ -61,14 +55,17 @@ const Login = () => {
     }
   };
   if (data) {
-    console.log("jjjjjjjjjj");
     localStorage.setItem("mi token", data.login.token);
-    //const myToken = localStorage.getItem('mi token');
     handleToken();
     history.push("/");
   }
+  const errorMessage = () => {
+    message.error("This is an error message");
+  };
+
   return (
     <>
+      {/* {error && errorMessage} */}
       <Row>
         <Container>Login</Container>
       </Row>
@@ -79,8 +76,14 @@ const Login = () => {
               css={formStyle}
               onSubmit={e => {
                 e.preventDefault();
-                setemailData(emailInput);
-                setpasswordData(passwordInput);
+                //setemailData(emailInput);
+                //setpasswordData(passwordInput);
+                login({
+                  variables: {
+                    email: emailInput,
+                    password: passwordInput
+                  }
+                });
                 setemailInput("");
                 setpasswordInput("");
               }}

@@ -17,10 +17,10 @@ type Query {
   hello(name: String): String!
   items: [Item]
   users: [User]
-  login(email: String, password: String): AuthData!
 }
 
 type Mutation {
   createItem(title: String, price_cost: Float): Item!
   createUser(email: String, password: String): User!
+  login(email: String, password: String): AuthData!
 }
